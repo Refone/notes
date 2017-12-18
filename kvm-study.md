@@ -5,18 +5,18 @@
 > [KVM 命令行启动第一台虚拟机](https://www.cnblogs.com/yexiaochong/p/6029315.html)
 
 # KVM preparation
-**neccesary libs:**
+## neccesary libs:
 ```
 sudo apt-get install qemu-kvm libvirt-bin virt-manager bridge-utils
 ```
-**查看当前运行虚拟机，可以用以检测kvm是否成功运行**
+查看当前运行虚拟机，可以用以检测kvm是否成功运行
 ```
 sudo virsh list --all
 ```
 
 # Creating VM image
 
-**创建30G的qcow2镜像**
+## 创建30G的qcow2镜像
 ```
 qemu-img create -f qcow2 ubuntu16.qcow2 30G
 ```
@@ -25,7 +25,7 @@ qemu-img create -f qcow2 ubuntu16.qcow2 30G
 % qemu-img create -f qcow2 ubuntu16.qcow2 30G
 Formatting 'ubuntu16.qcow2', fmt=qcow2 size=32212254720 encryption=off cluster_size=65536 lazy_refcounts=off
 ```
-**查看创建镜像**
+## 查看创建镜像
 ```
 qemu-img info ubuntu16.qcow2
 ```
@@ -41,7 +41,7 @@ Format specific information:
     compat: 1.1
     lazy refcounts: false
 ```
-**启动安装镜像**
+## 启动安装镜像
 ```powershell
 virt-install --name ubuntu16.04 --virt-type kvm --ram 1024 --cdrom=ubuntu-16.04-desktop.iso --disk ubuntu16.qcow2 --graphics vnc,listen=0.0.0.0 --noautoconsole
 ```
@@ -58,7 +58,7 @@ the console to complete the installation process.
 这时候用vncviewer连进去```[本机IP]:0```，开始安装，安装完成后点击重启，因为使用的是```virt-install```命令，系统并不会重启，不过在```virsh list```中就会出现刚刚安装好的虚拟机，再次```sudo virsh start [虚拟机name]```即可启动。
 
 # Manage VM
-**查看虚拟机列表**
+## 查看虚拟机列表
 ```
 sudo virsh list --all
 ```
@@ -74,7 +74,7 @@ sudo virsh list --all
 sudo virsh undefine ubuntu16
 ```
 
-**启动/关闭虚拟机**
+## 启动/关闭虚拟机
 ```
 sudo virsh start ubuntu16
 ```
@@ -82,7 +82,7 @@ sudo virsh start ubuntu16
 sudo virsh destroy ubuntu16 #或domID
 ```
 
-**查看虚拟机配置文件**
+## 查看/修改Guest配置
 
 * 导出guest的XML文件
 ```powershell
@@ -101,3 +101,34 @@ Tips: 当出现uuid被占用情况的时候可以使用```uuidgen```命令创建
 b7a63-f8c6-49e3-b0ad-7199ef4fadf5
 ```
 
+或者用```virsh edit```直接进行更新
+```
+sudo virsh edit [domID]
+```
+
+## Concole到VM
+* 查看guest串口
+```powershell
+sudo virsh ttyconsole 10 #10是我Guest的ID号
+```
+```powershell
+(ssh) refone@lrf-debian : ~/kvm
+[0] % sudo virsh ttyconsole 10
+/dev/pts/3
+```
+* 用```virsh edit```修改guset配置
+```xml
+    <console type='pty'>
+[+]     <source path='/dev/pts/3'/>
+        <target port='0'/>
+    </console>
+```
+* 在guest中(Ubuntu15.04及以后)翘入如下命令:
+```powershell
+sudo systemctl enable serial-getty@ttyS0.service
+sudo systemctl start serial-getty@ttyS0.service
+```
+* console到VM
+```
+sudo virsh console 10
+```
