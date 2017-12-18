@@ -55,7 +55,7 @@ Domain installation still in progress. You can reconnect to
 the console to complete the installation process.
 ```
 
-这时候用vncviewer连进去```[本机IP]:0```，开始安装，安装完成后点击重启，因为使用的是```virt-install```命令，系统并不会重启，不过在```virsh list```中就会出现刚刚安装好的虚拟机，再次```sudo virsh start [虚拟机name]```即可启动。
+这时候用vncviewer连进去```[本机IP]:0```，开始安装，安装完成后点击重启，因为使用的是```virt-install```命令，系统并不会重启，不过在```virsh list```中就会出现刚刚安装好的虚拟机，再次```sudo virsh start [虚拟机name]```即可启动。
 
 # Manage VM
 **查看虚拟机列表**
@@ -94,7 +94,7 @@ sudo virsh dumpxml ubuntu16 > ubuntu16.xml
 ```
 sudo virsh define ubuntu16.xml
 ```
-Tips: 当出现uuid被占用情况的时候可以使用```uuidgen```命令创建一个新的uuid
+Tips: 当出现uuid被占用情况的时候可以使用```uuidgen```命令创建一个新的uuid
 ```powershell
 (ssh) refone@lrf-debian : ~/kvm
 [0] % uuidgen
