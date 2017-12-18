@@ -57,6 +57,9 @@ the console to complete the installation process.
 
 这时候用vncviewer连进去```[本机IP]:0```，开始安装，安装完成后点击重启，因为使用的是```virt-install```命令，系统并不会重启，不过在```virsh list```中就会出现刚刚安装好的虚拟机，再次```sudo virsh start [虚拟机name]```即可启动。
 
+## 启动已有镜像
+没亲自尝试，在```virt-install```命令中去掉```--cdrom```那一项，直接从```--disk```里面起。
+
 # Manage VM
 ## 查看虚拟机列表
 ```
@@ -132,3 +135,17 @@ sudo systemctl start serial-getty@ttyS0.service
 ```
 sudo virsh console 10
 ```
+
+## 挂载新硬盘
+挂载硬盘
+```powershell
+sudo virsh attach-disk 10 /home/refone/kvm/kernel.img vda --cache none  # 10 is domID
+```
+卸载硬盘
+```powershell
+sudo virsh detach-disk 10 vda
+```
+这里可能有个bug，挂载时指定的vda没什么用，在guest里面都是从/dev/vda,/dev/vdb...这样开始排的，但扯淡的是在卸载的时候，卸载名不是guset里面显示的名字，而是一开始翘进去的名字。
+
+![](./image/kvm-study-1.png)
+
