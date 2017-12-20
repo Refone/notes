@@ -4,6 +4,8 @@
 
 > [KVM 命令行启动第一台虚拟机](https://www.cnblogs.com/yexiaochong/p/6029315.html)
 
+> [12.3.3 Virtualization with KVM](https://debian-handbook.info/browse/stable/sect.virtualization.html)
+
 # KVM preparation
 ## neccesary libs:
 ```
