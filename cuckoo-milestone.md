@@ -5,7 +5,7 @@
 ### Part 1：单机部分
  - [ ] 为guest设置两张EPT，并且能够用VMFUNC进行切换
 
-  > 每次启动Guest都能自动分配两张EPT，并且在启动阶段自动在EPT-1上加载一个kernel module(K1)。
+  > 每次启动Guest都能自动分配两张EPT，并且在启动阶段自动在EPT-1上加载一个kernel module(K1)。
 
   > 在正常内核起一个kernel module，能利用实现好的VMFUNC接口访问到EPT-1上K1的static数据。
 
@@ -19,15 +19,15 @@
 
  - [ ] 成功调用VE Handler
 
-  > 【工具】实现GPA访问kernel module（GPAK），用于访问（读/写）特定GPA。
+  > 【工具】实现GPA访问kernel module（GPAK），用于访问（读/写）特定GPA。
 
-  > 在正常内核中利用GPAK，模拟访问一个不在当前EPT中的GPA，看是否能执行到EPT-1中的VE Handler代码中。
+  > 在正常内核中利用GPAK，模拟访问一个不在当前EPT中的GPA，看是否能执行到EPT-1中的VE Handler代码中。
 
  - [ ] 利用VE做好内存访问记录（触发过VE得地址不会触发第二次）。
  
   > 设计一个bitmap，放在EPT-1里面，能够记录GPA的访问情况。
 
-  > 为正常内核提供接口，可以重置这个bitmap。
+  > 为正常内核提供接口，可以重置这个bitmap。
 
   > 为正常内核提供接口，可以查看某一GPA是否已被访问过。
 
@@ -37,7 +37,7 @@
 
   > 在source VM的正常内核里起一个kernel module（Ka），Ka在一个特殊地址addr上alloc一块数据。
 
-  > 在target VM的正常内核里起一个kernel module（Kb），用Kb访问特殊地址addr，这时候肯定会触发VE，看看VE能否结合网络传输模块拿到source VM中addr处的数据。
+  > 在target VM的正常内核里起一个kernel module（Kb），用Kb访问特殊地址addr，这时候肯定会触发VE，看看VE能否结合网络传输模块拿到source VM中addr处的数据。
 
 ### *Part 3：迁移部分
 
