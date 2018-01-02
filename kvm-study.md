@@ -60,7 +60,15 @@ the console to complete the installation process.
 这时候用vncviewer连进去```[本机IP]:0```，开始安装，安装完成后点击重启，因为使用的是```virt-install```命令，系统并不会重启，不过在```virsh list```中就会出现刚刚安装好的虚拟机，再次```sudo virsh start [虚拟机name]```即可启动。
 
 ## 启动已有镜像
-没亲自尝试，在```virt-install```命令中去掉```--cdrom```那一项，直接从```--disk```里面起。
+
+```powershell
+virt-install --name ubuntu-16.04 --import --memory 2048 --disk ubuntu16.qcow2 --network bridge=br0 --graphics vnc,listen=0.0.0.0
+```
+
+```powershell
+sudo qemu-system-x86_64 -m 2048 -machine accel=kvm -cpu host -drive file=/home/refone/kvm/kvm-ubuntu.qcow2 -netdev tap,id=net0,ifname=tap0 -device virtio-net,netdev=net0,mac=00:11:22:33:44:55
+```
+
 
 # Manage VM
 ## 查看虚拟机列表
