@@ -277,3 +277,5 @@ struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr, 
 [史上最详细的kvm_mmu_page结构和用法解析](http://ytliu.info/blog/2014/11/24/shi-shang-zui-xiang-xi-de-kvm-mmu-pagejie-gou-he-yong-fa-jie-xi/)
 
 [kvm: virtual x86 mmu setup](http://blog.stgolabs.net/2012/03/kvm-virtual-x86-mmu-setup.html)
+
+[KVM MMU EPT内存管理](http://blog.csdn.net/xelatex_kvm/article/details/17685123)
